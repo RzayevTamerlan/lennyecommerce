@@ -1,0 +1,40 @@
+.wrapper {
+  width: 585px;
+  height: 500px;
+  background: #F6F6F6;
+  margin-bottom: 160px;
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 16px;
+  }
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow-y: visible;
+}
+
+@media(max-width: 1050px) {
+  .wrapper {
+    width: 422px;
+    height: 380px;
+  }
+}
+
+@media(max-width: 800px) {
+  .wrapper {
+    width: 327px;
+    height: 280px;
+  }
+}
+
+@media(max-width: 350px) {
+  .wrapper {
+    width: 100%;
+  }
+}

@@ -1,0 +1,75 @@
+@import '../../app/vars';
+
+.burger {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  transform: translateX(100%);
+  bottom: 0px;
+  height: 100%;
+  width: 50vw;
+  background: #f1f1f1;
+  z-index: 100;
+  transition: 0.5s all;
+
+  &_active {
+    transform: translateX(0%);
+  }
+
+  .inner {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    height: 100%;
+
+    .close {
+      position: absolute;
+      display: block;
+      top: 0;
+      right: 20px;
+      top: 20px;
+      font-size: 20px;
+      font-weight: 700;
+      color: $main-text;
+      cursor: pointer;
+    }
+
+    .user_btn {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      gap: 10px;
+    }
+  }
+}
+
+.user_btn_not_logged {
+  border-radius: 50px;
+  border: 2px solid #E4E9EE;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+.user_img {
+  border-radius: 50%;
+}
+.user_name {
+    font-size: 16px;
+    font-weight: 700;
+    color: $main-text;
+}
+.user_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.user_link {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 10px;
+}

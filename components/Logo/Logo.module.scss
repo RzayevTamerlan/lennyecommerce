@@ -1,0 +1,22 @@
+@import '../../app/vars';
+@import '../../app/mixins';
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+}
+
+.logo_name {
+  @include large-text;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.logo {
+  max-width: 32px;
+  max-height: 32px;
+  width: 100%;
+  height: 100%;
+}

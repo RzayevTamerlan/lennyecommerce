@@ -1,0 +1,8 @@
+@import "../../../app/vars";
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: $footer-background;
+  padding-top: 60px;
+  padding-bottom: 120px;
+}

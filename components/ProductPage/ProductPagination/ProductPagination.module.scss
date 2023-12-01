@@ -1,0 +1,56 @@
+@import '../../../app/vars';
+
+.slide_btn {
+  padding: 24px;
+  border-radius: 9px;
+  border: 1.5px solid #F6F6F6;
+  background: #F6F6F6;
+  transition: 0.3s all;
+}
+
+.slide_btn_active {
+  border: 1.5px solid $price;
+}
+
+.wrapper {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 14px;
+}
+
+@media(max-width: 1050px) {
+  .slide_btn {
+    padding: 16px;
+  }
+  .wrapper {
+    gap: 8px;
+  }
+  .slide_img {
+    width: 66px;
+    height: 66px;
+  }
+}
+
+@media(max-width: 800px) {
+  .slide_btn {
+    padding: 13px;
+  }
+  .slide_img {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media(max-width: 350px) {
+  .slide_btn {
+    padding: 10px;
+  }
+  .slide_img {
+    width: 100%;
+    height: 100%;
+    min-width: 28px;
+    min-height: 28px;
+  }
+}

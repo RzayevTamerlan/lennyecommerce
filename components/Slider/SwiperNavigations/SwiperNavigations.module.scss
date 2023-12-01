@@ -1,0 +1,60 @@
+@import '../../../app/vars';
+
+.button_next {
+  background: $main-white;
+  position: absolute;
+  top: 50%;
+  right: 70px;
+  transform: translateY(-50%);
+  z-index: 9;
+  padding: 14px;
+  border-radius: 50px;
+  transition: 0.3s all;
+  visibility: hidden;
+  opacity: 0;
+
+  &:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  &_active {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.button_prev {
+  background: $main-white;
+  padding: 14px;
+  position: absolute;
+  top: 50%;
+  left: 70px;
+  z-index: 9;
+  transform: translateY(-50%);
+  border-radius: 50px;
+  transition: 0.3s all;
+  visibility: hidden;
+  opacity: 0;
+
+  img {
+    transform: rotate(180deg);
+  }
+
+  &:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  &_active {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@media(max-width: 710px) {
+  .button_next {
+    display: none;
+  }
+  .button_prev {
+    display: none;
+  }
+}

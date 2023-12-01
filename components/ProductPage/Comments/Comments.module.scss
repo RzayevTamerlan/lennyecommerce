@@ -1,0 +1,93 @@
+@import '../../../app/vars';
+@import '../../../app/mixins';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+}
+
+.filters {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #E4E9EE;
+  display: none;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.form {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rating_select {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 30px;
+}
+
+.enter_comment {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.comment_input {
+  width: 100%;
+  border: 1px solid $btn-color;
+  border-radius: 5px;
+  padding: 10px 5px;
+  font-size: 14px;
+  outline: none;
+}
+
+.dropdown {
+  background-color: $btn-color;
+  border-radius: 5px;
+  padding: 8px 12px;
+
+  div {
+    color: $main-white;
+  }
+}
+
+.comment_submit {
+  @include filled-button;
+}
+
+@media(max-width: 700px) {
+  .filters {
+    display: block;
+  }
+}
+
+@media(max-width: 330px) {
+  .rating_select {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+  }
+  .enter_comment {
+    flex-wrap: wrap;
+  }
+  .comment_submit {
+    width: 100%;
+  }
+}

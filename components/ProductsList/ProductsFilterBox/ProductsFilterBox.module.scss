@@ -1,0 +1,163 @@
+@import '../../../app/vars';
+
+.price_input::-webkit-inner-spin-button,
+.price_input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.wrapper {
+  overflow: hidden;
+  border-top: 1px solid #E4E9EE;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 55px;
+
+  .extend_display {
+    display: none;
+  }
+
+  .close_btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+
+    .arrow {
+      transform: rotate(0deg);
+      transition: 0.3s all;
+    }
+
+    .arrow_open {
+      transform: rotate(180deg);
+    }
+  }
+
+  .box_list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    max-height: 172px;
+    overflow: hidden;
+
+    .form {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+
+      input {
+        display: none;
+      }
+
+      .titles {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        .custom_checkbox_checked {
+          background-color: $price;
+          transition: 0.3s all;
+
+          &::after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            content: '\2713';
+            display: block;
+            color: $main-white;
+            width: 13px;
+            height: 13px;
+            z-index: 10;
+            transition: 0.3s all;
+          }
+        }
+
+        .custom_checkbox {
+          width: 24px;
+          height: 24px;
+          transition: 0.3s all;
+          border: 3px solid #C4C8CC;
+          border-radius: 8px;
+          position: relative;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .extend {
+    color: $price;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 160%;
+    margin-top: 0px;
+    text-align: left;
+  }
+
+  .price_box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .price_form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: flex-start;
+      gap: 12px;
+
+      .price_input {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid #E4E9EE;
+        border-radius: 12px;
+        color: $main-text;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 160%;
+      }
+
+      .btn_row {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .apply_filter {
+        border-radius: 12px;
+        border: 1px solid $price;
+        color: $price;
+        padding: 11px 15px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 160%;
+      }
+    }
+
+    .price_buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+
+      .price_btn {
+        padding: 11px 16px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 160%;
+        color: $main-text;
+        border-radius: 12px;
+        border: 1px solid #E4E9EE;
+      }
+    }
+  }
+}
+

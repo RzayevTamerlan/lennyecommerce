@@ -1,0 +1,79 @@
+@import '../../../app/vars';
+
+.header_btns {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 16px;
+}
+
+.basket {
+  position: relative;
+
+  .basket_count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    height: 20px;
+    width: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    border: 3px solid $main-white;
+    background: crimson;
+    color: $main-white;
+  }
+}
+
+.bordering {
+  height: 24px;
+  width: 1px;
+  background: #E4E9EE;
+}
+
+.user_icon {
+  padding: 12px;
+  border: 1px solid var(--d-grey-01, #E4E9EE);
+}
+
+.user {
+  border-radius: 50px;
+}
+
+.user_logged_in {
+  max-height: 38px;
+  max-width: 38px;
+  border: none;
+  padding: 0;
+}
+
+.user_pic {
+  max-height: 38px;
+  max-width: 38px;
+  border-radius: 50%;
+}
+
+@media(max-width: 560px) {
+  .user {
+    display: none;
+  }
+  .burger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 24px;
+    height: 100%;
+    min-width: 24px;
+    position: relative;
+
+    &_row {
+      width: 100%;
+      height: 2px;
+      border-radius: 50px;
+      background: $main-text;
+    }
+  }
+}

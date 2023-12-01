@@ -1,0 +1,20 @@
+.comment {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #E4E9EE;
+  gap: 8px;
+}
+.comment_last {
+  border-bottom: none;
+}
+.user_data {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.user {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 160%;
+}

@@ -1,0 +1,33 @@
+@import "../../../../app/vars";
+
+.nav {
+  background: $footer-background;
+  padding-top: 60px;
+  padding-bottom: 138px;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+
+  .link_green {
+    color: $price;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 160%;
+  }
+
+  .link {
+    color: $main-text;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 160%;
+  }
+
+  .arrow_box {
+    display: flex;
+    align-items: center;
+  }
+}

@@ -1,0 +1,65 @@
+@import "../../../app/vars";
+
+.wrapper {
+  margin-top: 52px;
+  margin-bottom: 32px;
+}
+
+.sections_list {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  position: relative;
+
+  .line {
+    width: 100%;
+    height: 2px;
+    background: #E4E9EE;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
+}
+
+.section_link {
+  padding: 14px 24px;
+  display: block;
+  position: relative;
+  white-space: nowrap;
+  color: #818B9C;
+  transition: 0.3s all;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 160%;
+  .line {
+    width: 100%;
+    height: 2px;
+    background: #E4E9EE;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    transition: 0.3s all;
+  }
+}
+.section_link_active {
+  color: $btn-color;
+}
+.section_link_active .line {
+  background: $btn-color;
+}
+
+//.line {
+//  width: 100%;
+//  height: 2px;
+//  background: #E4E9EE;
+//  position: absolute;
+//  bottom: -17px;
+//  left: 0;
+//  right: 0;
+//  z-index: -1;
+//}

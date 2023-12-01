@@ -1,0 +1,25 @@
+@import '../../../app/vars';
+
+.button {
+  width: 100%;
+  padding: 11px 0;
+  text-align: center;
+  border-radius: 8px;
+  background: $btn-color;
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 140%;
+  color: $main-white;
+  transition: 0.3s all;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media(max-width: 400px) {
+  .button {
+    font-size: 14px;
+  }
+}

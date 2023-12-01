@@ -1,0 +1,48 @@
+.aside {
+  border-radius: 12px;
+  border: 1px solid #E4E9EE;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 400px;
+  max-height: 525px;
+  .post_list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .line {
+    width: 100%;
+    height: 1px;
+    background-color: #E4E9EE;
+  }
+
+  .aside_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .share {
+    color: #0B0F0E;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 160%;
+    letter-spacing: -0.2px;
+  }
+  .socials_box {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 8px;
+  }
+}
+@media(max-width:700px) {
+  .aside {
+    max-width: none;
+
+  }
+}

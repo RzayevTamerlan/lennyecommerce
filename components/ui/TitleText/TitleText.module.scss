@@ -1,0 +1,43 @@
+@import '../../../app/vars';
+
+.title_text {
+  color: $main-text;
+  font-weight: 700;
+  line-height: 140%;
+  letter-spacing: -0.2px;
+}
+
+.text_center {
+  text-align: center;
+}
+
+.text_big {
+  font-size: 38px;
+}
+
+.text_medium {
+  font-size: 28px;
+}
+
+.text_small {
+  font-size: 20px;
+}
+
+.text_xs {
+  font-size: 16px;
+}
+
+@media(max-width: 600px) {
+  .text_xs {
+    font-size: 12px;
+  }
+  .text_small {
+    font-size: 14px;
+  }
+  .text_medium {
+    font-size: 18px;
+  }
+  .text_big {
+    font-size: 18px;
+  }
+}

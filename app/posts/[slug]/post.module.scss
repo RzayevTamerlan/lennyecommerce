@@ -1,0 +1,44 @@
+@import '../../../app/vars';
+@import '../../../app/mixins';
+
+.content {
+  margin-top: 52px;
+  margin-bottom: 120px;
+
+  .inner {
+    display: flex;
+    gap: 32px;
+    justify-content: space-between;
+
+    .content_text {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 850px;
+    }
+
+    .description {
+      @include secondary-text;
+    }
+  }
+}
+
+@media(max-width: 700px) {
+  .content {
+    margin-top: 25px;
+    margin-bottom: 60px;
+
+    .inner {
+      flex-direction: column-reverse;
+
+      .content_text {
+        gap: 12px;
+        max-width: none;
+      }
+
+      .description {
+        @include secondary-text;
+      }
+    }
+  }
+}

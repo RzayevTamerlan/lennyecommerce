@@ -1,0 +1,19 @@
+.main {
+  padding-top: 60px;
+  padding-bottom: 120px;
+  position: relative;
+}
+.products {
+  width: 100%;
+}
+.products_inner {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+}
+@media(max-width: 500px) {
+  .main {
+    padding-top: 30px;
+    padding-bottom: 60px;
+  }
+}

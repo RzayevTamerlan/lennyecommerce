@@ -1,0 +1,38 @@
+@import '../../../app/vars';
+@import '../../../app/mixins';
+
+.button {
+  @include empty-button;
+  text-align: center;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.sm {
+  padding: 10px 16px;
+  font-size: 18px;
+  max-width: 150px;
+}
+
+.md {
+  padding: 14px 10px;
+  font-size: 18px;
+  max-width: 260px;
+  width: 100%;
+}
+
+@media(max-width: 400px) {
+  .sm {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 140%;
+  }
+  .md {
+    font-size: 14px;
+    padding: 14px 6px;
+    width: 100%;
+  }
+}

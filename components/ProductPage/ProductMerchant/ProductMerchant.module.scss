@@ -1,0 +1,116 @@
+@import '../../../app/vars';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.merchant_info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+}
+
+.merchant_data {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 16px;
+}
+
+.merchant_logo {
+  max-width: 84px;
+  max-height: 84px;
+  min-width: 52px;
+  min-height: 52px;
+  border-radius: 52px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.merchant {
+  display: flex;
+  flex-direction: column;
+}
+
+.merchant_tags {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  white-space: nowrap;
+  gap: 10px;
+  margin-top: 10px;
+
+  .merchant_tag {
+    padding: 5px 8px;
+    border-radius: 4px;
+    background: rgba(29, 158, 52, 0.10);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%;
+    color: $price;
+  }
+}
+
+.merchant_btns {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 16px;
+}
+
+.merchant_btn {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 5px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: -0.2px;
+  color: $btn-color;
+  border-radius: 8px;
+  border: 1px solid $btn-color;
+  transition: 0.3s all;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.merchant_btn_color {
+  max-width: 24px;
+  max-height: 24px;
+  width: 100%;
+  height: 100%;
+}
+
+@media(max-width: 800px) {
+  .merchant_btn {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+}
+
+@media(max-width: 740px) {
+  .merchant_info {
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .merchant_data {
+    width: 100%;
+  }
+  .merchant_tags {
+    flex-wrap: wrap;
+  }
+  .merchant_btns {
+    flex-wrap: wrap;
+  }
+}

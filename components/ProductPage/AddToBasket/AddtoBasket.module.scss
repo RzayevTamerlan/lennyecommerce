@@ -1,0 +1,43 @@
+@import "../../../app/mixins";
+
+.btn_row {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 16px;
+  margin-top: 52px;
+}
+
+.btn_green {
+  @include filled-button;
+  max-width: 260px;
+  width: 100%;
+  max-height: 44px;
+  height: 100%;
+}
+
+.btn_empty {
+  @include empty-button;
+  max-width: 260px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-height: 44px;
+  height: 100%;
+}
+
+@media(max-width: 350px) {
+  .btn_row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .btn_green {
+    max-width: 100%;
+  }
+  .btn_empty {
+    max-width: 100%;
+  }
+}

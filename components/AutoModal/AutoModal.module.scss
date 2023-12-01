@@ -1,0 +1,144 @@
+@import '../../app/vars';
+@import '../../app/mixins';
+
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s all;
+}
+
+.wrapper_open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal {
+  position: absolute;
+  padding: 32px 24px;
+  top: 50%;
+  left: 50%;
+  width: 40vw;
+  height: 70vh;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s all;
+  transform: translateY(-200%) translateX(-50%);
+  border: 1px solid #E4E9EE;
+}
+
+.modal_open {
+  transform: translate(-50%, -50%);
+}
+
+.modal_header {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.close {
+  cursor: pointer;
+}
+
+.signup_form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sign_row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.sign_label {
+  @include large-text();
+  font-size: 16px;
+}
+
+.sign_input {
+  border-radius: 12px;
+  background: $search-background;
+  width: 100%;
+  padding: 10px 30px 10px 20px;
+}
+
+.pass_block {
+  position: relative;
+  width: 100%;
+}
+
+.show_hide_password {
+  position: absolute;
+  top: 10px;
+  right: 7px;
+}
+
+.reg {
+  cursor: pointer;
+  color: $price;
+  text-align: right;
+}
+
+.sign_btn {
+  @include filled-button();
+  transition: 0.3s all;
+  border: 1px solid $btn-color;
+  margin-top: 16px;
+
+  &:hover {
+    background-color: $main-white;
+    color: $main-text;
+  }
+
+  &:disabled {
+    background-color: $main-white;
+    color: $main-text;
+    border: 1px solid red;
+  }
+
+  &:focus {
+    outline: $main-text;
+  }
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.btn_row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media(max-width: 835px) {
+  .modal {
+    width: 80vw;
+    height: 65vh;
+  }
+}
+
+@media(max-width: 400px) {
+  .modal {
+    width: 90vw;
+    height: 65vh;
+  }
+}

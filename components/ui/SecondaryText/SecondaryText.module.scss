@@ -1,0 +1,27 @@
+@import '../../../app/vars';
+@import '../../../app/mixins';
+
+.text {
+  @include secondary-text
+}
+
+.sm {
+  font-size: 16px;
+}
+
+.md {
+  font-size: 18px;
+}
+
+.center {
+  text-align: center;
+}
+
+@media(max-width: 400px) {
+  .sm {
+    font-size: 12px;
+  }
+  .md {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,168 @@
+@import '../../../app/vars';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.title_box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-width: 900px;
+}
+
+.specs_box {
+  display: flex;
+  align-items: flex-start;
+  justify-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.specs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 410px;
+  width: 100%;
+}
+
+.specs_list {
+  display: flex;
+  flex-direction: column;
+  max-width: 410px;
+  width: 100%;
+}
+
+.specs_item {
+  padding: 10px;
+  max-width: 410px;
+  width: 100%;
+  background-color: #F9F9F9;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.specs_item_odd {
+  background-color: $main-white;
+}
+
+.specs_label {
+  flex: 1;
+}
+
+.specs_value {
+  flex: 1;
+
+}
+
+.specs_value_label {
+  color: $main-text;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 160%;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.box_list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.box_item {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 10px;
+}
+
+.box_image {
+  max-width: 24px;
+  max-height: 24px;
+}
+
+.box_label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 160%;
+  color: $main-text;
+}
+.required {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.required_list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.required_item {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 160%;
+  color: $secondary-text;
+  white-space: nowrap;
+}
+
+@media(max-width:950px) {
+  .wrapper {
+    gap: 16px;
+  }
+  .specs_box {
+    gap: 16px;
+  }
+  .box_label {
+    font-size: 14px;
+  }
+  .specs_value_label {
+    font-size: 14px;
+  }
+  .specs_value_label {
+    font-size: 14px;
+  }
+  .required_item {
+    white-space: normal;
+  }
+}
+
+@media(max-width:600px) {
+  .wrapper {
+    gap: 16px;
+  }
+  .specs_box {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .specs {
+    max-width: 100%;
+  }
+  .specs_list {
+    max-width: 100%;
+  }
+  .specs_item {
+    max-width: 100%;
+  }
+  .box {
+    gap: 16px;
+  }
+  .box_list {
+    gap: 8px;
+  }
+  .box_item {
+    gap: 8px;
+  }
+  .box_image {
+    max-width: 16px;
+    max-height: 16px;
+  }
+}

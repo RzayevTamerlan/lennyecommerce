@@ -1,0 +1,90 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.stats_box {
+  padding: 24px;
+  border: 1px solid #E4E9EE;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.circle_progress {
+  font-weight: 700;
+  div {
+    svg {
+      transform: rotate(90deg);
+    }
+  }
+}
+.stats_circle {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 16px;
+}
+.stats_stars_box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stats_progress {
+  max-width: 670px;
+  width: 100%;
+}
+.stats_count_circle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 160%;
+}
+.stats_count {
+  width: 60%;
+}
+
+.stats_list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.stats_item {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 20px;
+}
+
+.stats_rating_box {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 160%;
+}
+
+@media(max-width: 700px) {
+  .stats_box {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .stats_count {
+    width: 100%;
+  }
+}
+
+@media(max-width:500px) {
+  .stats_rating_box {
+    font-size: 12px;
+  }
+  .stats_item {
+    p {
+      font-size: 12px;
+    }
+  }
+}

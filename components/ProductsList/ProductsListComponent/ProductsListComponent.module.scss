@@ -1,0 +1,72 @@
+@import '../../../app/vars';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.list_line {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.arrow_left {
+  transform: rotate(180deg);
+}
+
+.pagination_btn {
+  padding: 11px 16px;
+  border-radius: 8px;
+  border: 1px solid #E4E9EE;
+  color: $secondary-text;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%;
+  text-align: center;
+  transition: 0.3s all;
+
+  &:hover {
+    border: 1px solid $price;
+  }
+}
+
+.pagination_btn_active {
+  color: $price;
+}
+
+@media(max-width: 1200px) {
+  .list_grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 500px) {
+  .list_grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 80px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.basket {
+  margin-top: 55px;
+}
+@media(max-width: 710px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media(max-width: 400px) {
+  .products {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

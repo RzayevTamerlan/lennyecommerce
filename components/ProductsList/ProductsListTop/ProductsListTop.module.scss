@@ -1,0 +1,145 @@
+@import "../../../app/vars";
+@import "../../../app/mixins";
+
+.section {
+  padding-bottom: 50px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation {
+
+}
+
+.navigation_list {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+}
+
+.view_box {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #E4E9EE;
+  transition: 0.3s all;
+}
+
+.filtering {
+  display: none;
+}
+
+.navigation_item {
+  border-bottom: 1px solid $main-white;
+  transition: 0.3s all;
+  padding-bottom: 2px;
+
+  &_green {
+    &:hover {
+      border-bottom: 1px solid $price !important;
+    }
+  }
+
+  &:hover {
+    border-bottom: 1px solid $main-text;
+  }
+}
+
+.arrow {
+  max-width: 12px;
+  max-height: 12px;
+}
+
+.navigation_link_black {
+  color: $main-text;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 160%;
+}
+
+.navigation_link_green {
+  color: $price;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 160%;
+}
+
+.searching_data {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 24px;
+
+    .line {
+      width: 1px;
+      height: 24px;
+      background-color: #E4E9EE;
+    }
+
+    .sorting_text {
+      white-space: nowrap;
+    }
+
+    .sorting {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      gap: 24px;
+      max-width: 250px;
+      justify-content: space-between;
+    }
+
+    .view {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      gap: 8px;
+
+      .view_box_active {
+        border: 1px solid $btn-color;
+        background: $btn-color;
+
+        svg path {
+          fill: $main-white;
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 690px) {
+  .searching_data {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .right {
+      gap: 12px;
+
+      .sorting_text {
+        display: none;
+      }
+
+    }
+  }
+  .view_box {
+    padding: 5px;
+  }
+  .filtering {
+    display: flex;
+  }
+}

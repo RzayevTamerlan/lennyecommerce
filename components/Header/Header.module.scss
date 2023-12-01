@@ -1,0 +1,35 @@
+@import '../../app/vars';
+
+.header {
+  width: 100%;
+  padding: 28px 0;
+  border-bottom: 1px solid #E4E9EE;
+  overflow-y: visible;
+  background-color: $main-white;
+}
+
+.header_scroll {
+  position: fixed;
+  z-index: 100;
+}
+
+.inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 100;
+}
+
+@media(max-width: 560px) {
+  .logo {
+    display: none;
+  }
+}
+
+@media(max-width: 400px) {
+  .inner {
+    gap: 5px;
+  }
+}

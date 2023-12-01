@@ -1,0 +1,126 @@
+@import "../../../app/vars";
+
+.searchBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  padding: 11px 0;
+  background: $search-background;
+  border-radius: 8px;
+  transition: 0.5s all;
+
+  .categories {
+    position: absolute;
+    bottom: -288px;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    align-items: flex-start;
+    background: $search-background;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: 0.3s all;
+    border: 1px solid $main-text;
+    border-top: none;
+  }
+
+  .categories_active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0px);
+  }
+
+  .arrow_down {
+    transform: rotate(0deg);
+    transition: 0.5s all;
+  }
+
+  .arrow_down_active {
+    transform: rotate(-180deg);
+  }
+
+  .categories_btn {
+    font-weight: 500;
+    transition: 0.5s all;
+    padding: 10px 10px;
+    width: 100%;
+  }
+
+  .categories_btn_active {
+    background: $price;
+    color: $main-white;
+  }
+}
+
+
+.searchBar_active {
+  border-bottom-left-radius: 0;
+}
+
+.category_btn {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 5px;
+  position: relative;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 160%;
+  padding-left: 16px;
+  padding-right: 20px;
+  white-space: nowrap;
+}
+
+
+.border {
+  display: block;
+  height: 24.8px;
+  width: 1px;
+  background: #E4E9EE;
+}
+
+.form {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+
+  input {
+    height: 100%;
+    width: 30vw;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 160%;
+    color: $secondary-text;
+    padding-left: 16px;
+
+    &::placeholder {
+      color: $secondary-text;
+    }
+  }
+
+  button {
+    padding-right: 16px;
+  }
+}
+
+@media(max-width: 778px) {
+  .border {
+    display: none;
+  }
+  .searchBar {
+    .category_btn {
+      display: none;
+    }
+  }
+}

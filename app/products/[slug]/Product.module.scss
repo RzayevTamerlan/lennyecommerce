@@ -1,0 +1,66 @@
+@import '../../vars';
+
+.navigation {
+  margin-top: 60px;
+  margin-bottom: 32px;
+}
+
+.navigation_list {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+}
+.arrow_right {
+  display: flex;
+  align-self: center;
+  justify-self: center;
+}
+.navigation_item {
+  display: flex;
+}
+.navigation_link {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 160%;
+}
+
+.navigation_link_green {
+  color: $price;
+}
+.product {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+@media(max-width:700px) {
+  .product {
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+  }
+}
+@media(max-width:500px) {
+  .product {
+    gap: 16px;
+  }
+}
+@media(max-width:400px) {
+  .navigation_list {
+    gap: 5px;
+  }
+  .navigation_link {
+    font-size: 14px;
+  }
+}
+@media(max-width:300px) {
+  .navigation_list {
+    gap: 5px;
+  }
+  .navigation_link {
+    font-size: 10px;
+  }
+}

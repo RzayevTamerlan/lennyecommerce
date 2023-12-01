@@ -1,0 +1,76 @@
+@import "../../../app/vars";
+@import "../../../app/mixins";
+
+.wrapper {
+  border-radius: 12px;
+  border: 1px solid #E4E9EE;
+  background: $main-white;
+  padding: 24px;
+  width: 100%;
+  max-width: 380px;
+  max-height: 570px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.products_list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.products_item {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.product_name {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 160%;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.checkout {
+  @include filled-button;
+  margin-top: 16px
+}
+
+.voucher {
+  border-radius: 12px;
+  background: $search-background;
+  padding: 15px 16px;
+  width: 100%;
+}
