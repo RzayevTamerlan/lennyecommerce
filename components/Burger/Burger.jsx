@@ -14,20 +14,15 @@ import {setToken} from "../../api/createAxios";
 import purches from "../../public/icons/user/purches.svg";
 import wishlist from "../../public/icons/user/wishlist.svg";
 import settings from "../../public/icons/user/settings.svg";
+
 const Burger = ({isActive}) => {
   const isUserLoggedIn = useUser((state) => state.isUserRegistered);
   const [user, setUser] = useState('');
   useEffect(() => {
-    console.log('In useEffect', isUserLoggedIn)
     const getUserData = async () => {
       const token = await getCookie();
-      if (token !== 'No Cookie Found') {
-        console.log('In IF IN BURGER MENU USEEFFECT', token.value)
-        await setToken(token.value);
-      }
       if (isUserLoggedIn) {
-        const res = await getUser();
-        console.log(res, '--USER DATA--')
+        const res = await getUser(token?.value);
         await setUser(res);
       }
     }
@@ -35,7 +30,6 @@ const Burger = ({isActive}) => {
   }, [isUserLoggedIn]);
   const closeModal = useToggle((state) => state.toggleBurger);
   const openAuth = useAuto((state) => state.openAuto);
-  console.log(user)
   return (
     <div className={classNames(styles.burger, {
       [styles.burger_active]: isActive
@@ -51,26 +45,26 @@ const Burger = ({isActive}) => {
                 <Image className={styles.user_img} src={isUserLoggedIn ? userPic : userIcon} alt={'User image'}/>
                 <p className={styles.user_name}>{user.username}</p>
               </button>
-            <ul className={styles.user_list}>
-              <li className={styles.user_item}>
-                <Link className={styles.user_link} href={'#'}>
-                  <Image className={styles.user_item_img} alt={'Purches'} src={purches}/>
-                  Purchase
-                </Link>
-              </li>
-              <li className={styles.user_item}>
-                <Link className={styles.user_link} href={'/wishlist'}>
-                  <Image className={styles.user_item_img} alt={'Wishlist'} src={wishlist}/>
-                  Wishlist
-                </Link>
-              </li>
-              <li className={styles.user_item}>
-                <Link className={styles.user_link} href={'#'}>
-                  <Image className={styles.user_item_img} alt={'Settings'} src={settings}/>
-                  Settings
-                </Link>
-              </li>
-            </ul>
+              <ul className={styles.user_list}>
+                <li className={styles.user_item}>
+                  <Link className={styles.user_link} href={'#'}>
+                    <Image className={styles.user_item_img} alt={'Purches'} src={purches}/>
+                    Purchase
+                  </Link>
+                </li>
+                <li className={styles.user_item}>
+                  <Link className={styles.user_link} href={'/wishlist'}>
+                    <Image className={styles.user_item_img} alt={'Wishlist'} src={wishlist}/>
+                    Wishlist
+                  </Link>
+                </li>
+                <li className={styles.user_item}>
+                  <Link className={styles.user_link} href={'#'}>
+                    <Image className={styles.user_item_img} alt={'Settings'} src={settings}/>
+                    Settings
+                  </Link>
+                </li>
+              </ul>
             </>)
             :
             <button onClick={() => openAuth()} className={styles.user_btn_not_logged}>

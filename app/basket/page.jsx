@@ -12,8 +12,8 @@ export default async function Basket() {
       <BasketHead title={'Shopping Chart'}/>
       <div className="container">
         <div className={styles.inner}>
-          <BasketItems isUserLoggedIn={isUserLoggedIn}/>
-          <BasketSummary isUserLoggedIn={isUserLoggedIn}/>
+          <BasketItems />
+          <BasketSummary />
         </div>
         <RelatedProducts isBasket={true}/>
       </div>

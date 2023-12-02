@@ -21,15 +21,13 @@ const AuthUser = () => {
   const isModalOpen = useUserMenu((state) => state.isUserMenuOpen);
   const closeModal = useUserMenu((state) => state.closeUserMenu);
   const isUserLoggedIn = useUser(state => state.isUserRegistered);
+  console.log('AUTH USER', isUserLoggedIn)
   const unregisterUser = useUser(state => state.unregisterUser);
   useEffect(() => {
     const getUserData = async () => {
       const token = await getCookie();
-      if (token !== 'No Cookie Found') {
-        await setToken(token.value);
-      }
-      const user = await getUser();
-
+      const user = await getUser(token?.value);
+      console.log(user, 'USER DATA IN AUTH USER');
       setUser(user);
     }
     getUserData();

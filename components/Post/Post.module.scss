@@ -7,6 +7,7 @@
   overflow: hidden;
   transition: 0.3s all;
   padding: 20px;
+
   &:hover {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
@@ -35,19 +36,32 @@
     line-height: 160%;
   }
 }
+
 @media(max-width: 900px) {
   .wrapper {
     padding: 10px;
   }
 }
-@media(max-width:650px) {
+
+@media(max-width: 650px) {
   .wrapper {
     align-items: center;
     justify-content: center;
   }
 }
-@media(max-width:400px) {
+
+@media(max-width: 400px) {
+  .wrapper {
+    padding: 5px;
+  }
+}
+
+@media(max-width: 350px) {
   .wrapper {
     padding: 0;
+
+    &:hover {
+      box-shadow: none;
+    }
   }
 }

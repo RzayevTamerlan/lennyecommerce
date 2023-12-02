@@ -2,11 +2,14 @@
 import Image from "next/image";
 import shopingCartIcon from "../../../public/icons/product/shopping-cart.svg";
 import styles from "./AddtoBasket.module.scss"
-import {useBasket} from "../../../store/store";
+import {useBasket, useUser} from "../../../store/store";
 import {toast, ToastContainer} from "react-toastify";
+import getAllBasketProducts from "../../../api/getAllBasketProducts";
+import addToBasket from "../../../api/addToBasket";
+import incrementBasketItem from "../../../api/incrementBasketItem";
+import {getCookie, getUser} from "../../../actions/auth";
 
 const AddToBasket = ({
-                       isUserLoggedIn,
                        merchant,
                        preview,
                        price,
@@ -17,12 +20,11 @@ const AddToBasket = ({
                        activeColor,
                        activeType
                      }) => {
-  // const incrementBasket = useBasket(state => state.incrementBasket);
-  // const addToBasket = useBasket(state => state.addProduct);
   const basketChanged = useBasket(state => state.basketChanged);
-  const handleAddClick = (e) => {
+  const isUserLoggedIn = useUser(state => state.isUserRegistered);
+  const handleAddClick = async (e) => {
     e.preventDefault();
-    if (!isUserLoggedIn.email) {
+    if (!isUserLoggedIn) {
       const allProducts = JSON.parse(localStorage.getItem('products'));
       if (!allProducts) {
         const product = {
@@ -51,7 +53,6 @@ const AddToBasket = ({
         return;
       }
       const productIndex = allProducts.findIndex((product) => product.slug === slug.slug);
-
       if (productIndex === -1) {
         const product = {
           title,
@@ -93,7 +94,22 @@ const AddToBasket = ({
         });
       }
     } else {
-      // Adding to basket for logged in user by using API
+      const token = await getCookie();
+      const userData = await getUser(token.value);
+      const userBasket = await getAllBasketProducts(userData?.username);
+      const productIndex = userBasket.data.findIndex((product) => product.attributes.slug === slug.slug);
+      if (productIndex === -1) {
+        const addProduct = await addToBasket(title, slug.slug, preview, activeColor, activeType, price, merchant, userData?.username);
+        toast('Your product was added to your basket!', {
+          autoClose: 2000,
+        });
+        basketChanged(['random']);
+      } else {
+        const incrementing = await incrementBasketItem(slug.slug, userData?.username);
+        toast('Your product was added one more time to your basket!', {
+          autoClose: 2000,
+        });
+      }
     }
   }
   return (

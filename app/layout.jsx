@@ -14,7 +14,6 @@ const montserrat = Montserrat({subsets: ['latin']});
 export default async function RootLayout({children}) {
   const token = await getCookie();
   if (token !== 'No Cookie Found') {
-    console.log('In IF', token.value)
     await setToken(token.value);
   }
   return (

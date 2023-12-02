@@ -10,7 +10,8 @@ import classNames from "classnames";
 import {useAuto, useBasket, useToggle, useUser, useUserMenu} from "../../../store/store";
 import userPic from "../../../public/icons/user/user-icon.jpg";
 import {useEffect, useState} from "react";
-import {getCookie} from "../../../actions/auth";
+import {getCookie, getUser} from "../../../actions/auth";
+import getAllBasketProducts from "../../../api/getAllBasketProducts";
 
 const HeaderBtns = () => {
   const isUserLoggedIn = useUser(state => state.isUserRegistered);
@@ -21,7 +22,6 @@ const HeaderBtns = () => {
   const toggleUserMenu = useUserMenu(state => state.toggleUserMenu);
   const basketChanged = useBasket(state => state.basketProducts);
   const [localbasketCount, setLocalBasketCount] = useState(0);
-  console.log(basketChanged)
   useEffect(() => {
     const checkForCookie = async () => {
       const token = await getCookie();
@@ -34,23 +34,24 @@ const HeaderBtns = () => {
     checkForCookie();
   }, [isUserLoggedIn]);
   useEffect(() => {
-    const allLocalStorageProducts = JSON.parse(localStorage.getItem('products'));
-    if (allLocalStorageProducts) {
-      const basketCount = allLocalStorageProducts.length
-      setLocalBasketCount(basketCount);
-    } else {
-
-    }
-  }, []);
-  useEffect(() => {
-    const allLocalStorageProducts = JSON.parse(localStorage.getItem('products'));
-    if (allLocalStorageProducts) {
-      const basketCount = allLocalStorageProducts.length
-      setLocalBasketCount(basketCount);
-    } else {
-      setLocalBasketCount(0);
-    }
-  }, [basketChanged])
+    (async () => {
+      if (isUserLoggedIn) {
+        const token = await getCookie();
+        const userData = await getUser(token.value);
+        const allBasket = await getAllBasketProducts(userData?.username);
+        const basketCount = allBasket.data.length;
+        setLocalBasketCount(basketCount);
+      } else {
+        const allLocalStorageProducts = JSON.parse(localStorage.getItem('products'));
+        if (allLocalStorageProducts) {
+          const basketCount = allLocalStorageProducts.length
+          setLocalBasketCount(basketCount);
+        } else {
+          setLocalBasketCount(0);
+        }
+      }
+    })();
+  }, [basketChanged, isUserLoggedIn])
   const handleUnregisterUserClick = async (e) => {
     e.preventDefault();
     setAuthOpen();
@@ -62,7 +63,7 @@ const HeaderBtns = () => {
   return (<div className={styles.header_btns}>
     <Link className={styles.basket} href={'/basket/'}>
       <Image alt={'Basket'} src={basketIcon}></Image>
-      <span className={styles.basket_count}>{isUserLoggedIn ? 5 : localbasketCount}</span>
+      <span className={styles.basket_count}>{localbasketCount}</span>
     </Link>
     {isUserLoggedIn ? <><Link href={'#'}><Image src={notificationIcon}
                                                 alt={'Notifications'}></Image></Link>

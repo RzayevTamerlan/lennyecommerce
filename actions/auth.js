@@ -37,29 +37,6 @@ export async function registerUser(username, email, password) {
       path: '/',
       expires: new Date().getTime() + sixM,
     });
-    const {data: newBasket} = await api.post('/baskets', {
-      "data": {
-        "title": "Hello"
-      }
-    }, {
-      headers: {
-        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-      }
-    });
-    const newBasketId = newBasket.data.id
-    const connectNewBasketToUser = await api.put(`/baskets/${newBasketId}`, {
-      "data": {
-        "users_permissions_user": {
-          "set": [
-            {"id": data.user.id}
-          ]
-        }
-      }
-    }, {
-      headers: {
-        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-      }
-    })
     const {data: newWishlist} = await api.post('/wishlists', {
       "data": {
         "title": "Hello"
@@ -114,19 +91,24 @@ export async function logoutUser() {
   }
 }
 
-export async function getUser() {
+export async function getUser(token) {
   try {
-    const {data} = await api.get(`/users/me`);
+    const {data} = await api.get(`/users/me`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
     return data;
   } catch (e) {
     return 'Error';
   }
 }
+
 export async function getAllUserData() {
   try {
     const {data} = await api.get('/users/me?populate=*');
     return data
-  } catch(e) {
+  } catch (e) {
     return 'Error'
   }
 }

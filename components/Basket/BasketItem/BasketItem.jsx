@@ -1,6 +1,6 @@
 "use client";
 import styles from "./BasketItem.module.scss";
-import {useBasket} from "../../../store/store";
+import {useBasket, useUser} from "../../../store/store";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../public/icons/product/merchant-logo.png"
@@ -11,14 +11,18 @@ import plusIcon from "../../../public/icons/basket/add-square.svg";
 import {useState} from "react";
 import trashIcon from "../../../public/icons/basket/trash.svg";
 
-const BasketItem = ({title, slug, preview, merchant, price, quantity, type, color, isUserLoggedIn}) => {
+const BasketItem = ({title, slug, preview, merchant, price, quantity, type, color}) => {
   const [inputValue, setInputValue] = useState(quantity);
   const basketChanged = useBasket((state) => state.basketChanged);
+  const isUserLoggedIn = useUser((state) => state.isUserRegistered);
   const myLoader = ({src}) => {
     return `${process.env.NEXT_PUBLIC_API}${src}`
   }
   const handleInputChange = (e) => {
-    if (isUserLoggedIn === 'Error') {
+    if (+e.target.value < 1) {
+      e.target.value = 1;
+    }
+    if (!isUserLoggedIn) {
       const allProducts = JSON.parse(localStorage.getItem('products'));
       const productIndex = allProducts.findIndex((product) => product.slug === slug);
       allProducts[productIndex].quantity = +e.target.value;
@@ -31,7 +35,7 @@ const BasketItem = ({title, slug, preview, merchant, price, quantity, type, colo
   }
   const handleIncrementClick = (e) => {
     e.preventDefault();
-    if (isUserLoggedIn === 'Error') {
+    if (!isUserLoggedIn) {
       if (+inputValue === 99) return;
       const allProducts = JSON.parse(localStorage.getItem('products'));
       const productIndex = allProducts.findIndex((product) => product.slug === slug);
@@ -45,7 +49,7 @@ const BasketItem = ({title, slug, preview, merchant, price, quantity, type, colo
   }
   const handleDecrementClick = (e) => {
     e.preventDefault();
-    if (isUserLoggedIn === 'Error') {
+    if (!isUserLoggedIn) {
       const allProducts = JSON.parse(localStorage.getItem('products'));
       const productIndex = allProducts.findIndex((product) => product.slug === slug);
       if (+inputValue > 1) {
@@ -60,7 +64,7 @@ const BasketItem = ({title, slug, preview, merchant, price, quantity, type, colo
   }
   const handleDeleteClick = (e) => {
     e.preventDefault();
-    if (isUserLoggedIn === 'Error') {
+    if (!isUserLoggedIn) {
       const allProducts = JSON.parse(localStorage.getItem('products'));
       const productIndex = allProducts.findIndex((product) => product.slug === slug);
       allProducts.splice(productIndex, 1);

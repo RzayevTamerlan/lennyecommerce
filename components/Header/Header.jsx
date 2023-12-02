@@ -7,7 +7,7 @@ import {useToggle} from "../../store/store";
 import Burger from "../Burger/Burger";
 import AuthUser from "./AuthUser/AuthUser";
 
-const Header = () => {
+const Header = ({token}) => {
     const isModalOpen = useToggle((state) => state.isBurgerOpen);
     return (
       <header className={styles.header}>
