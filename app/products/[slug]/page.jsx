@@ -1,4 +1,4 @@
- import styles from './Product.module.scss'
+import styles from './Product.module.scss'
 import getProductBySlug from "../../../api/getProductBySlug";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,7 +16,8 @@ import ProductRatingStats from "../../../components/ProductPage/ProductRatingSta
 import ProductsComments from "../../../components/ProductPage/ProductsComments/ProductsComments";
 import getCommentsByProduct from "../../../api/getCommentsByProduct";
 import getCommentsByProductNotFiltered from "../../../api/getCommentsByProductNotFiltered";
- import RelatedProducts from "../../../components/ProductPage/RelatedProducts/RelatedProducts";
+import RelatedProducts from "../../../components/ProductPage/RelatedProducts/RelatedProducts";
+import NotFoundPage from "./not-found";
 
 export async function generateStaticParams() {
   const products = await getAllProducts();
@@ -27,29 +28,33 @@ export async function generateStaticParams() {
 
 export const revalidate = 15;
 export default async function Product({searchParams, params: slug}) {
-  const search = searchParams.search;
-  const ratingFilter = searchParams.rating;
-  const reviewFilter = searchParams.review;
-  const {data: productData} = await getProductBySlug(slug.slug);
-  const productId = productData[0].id;
-  const category = productData[0].attributes.category.data[0].attributes.title;
-  const productName = productData[0].attributes.title;
-  const productDescription = productData[0].attributes.description;
-  const categorySlug = productData[0].attributes.category.data[0].attributes.slug;
-  const sliders = productData[0].attributes.slider.data;
-  const preview = productData[0].attributes.preview.data.attributes.url;
-  const merchant = productData[0].attributes.producer;
-  const productSpecs = productData[0].attributes.specs;
-  const productLocation = productData[0].attributes.location;
-  const {data: comments} = await getCommentsByProduct(productData[0].attributes.slug, ratingFilter, reviewFilter);
-  const  {data: allProductComments} = await getCommentsByProductNotFiltered(productData[0].attributes.slug);
+  const search = searchParams?.search;
+  const ratingFilter = searchParams?.rating;
+  const reviewFilter = searchParams?.review;
+  const {data: productData} = await getProductBySlug(slug?.slug);
+  if (productData.length === 0) {
+    return <NotFoundPage></NotFoundPage>
+  }
+  const productId = productData[0]?.id;
+  const category = productData[0].attributes?.category?.data[0]?.attributes?.title;
+  const productName = productData[0]?.attributes?.title;
+  const productDescription = productData[0]?.attributes?.description;
+  const categorySlug = productData[0]?.attributes?.category?.data[0]?.attributes?.slug;
+  const sliders = productData[0]?.attributes?.slider?.data;
+  const preview = productData[0]?.attributes?.preview?.data?.attributes?.url;
+  const merchant = productData[0]?.attributes?.producer;
+  const productSpecs = productData[0]?.attributes?.specs;
+  const productLocation = productData[0]?.attributes?.location;
+  const {data: comments} = await getCommentsByProduct(productData[0]?.attributes?.slug, ratingFilter, reviewFilter);
+  const {data: allProductComments} = await getCommentsByProductNotFiltered(productData[0]?.attributes?.slug);
   return (
     <main className={styles.main}>
       <div className="container">
         <nav className={styles.navigation}>
           <ul className={styles.navigation_list}>
             <li className={styles.navigation_item}>
-              <Link className={classNames(styles.navigation_link, styles.navigation_link_green)} href={`/`}>Home</Link>
+              <Link className={classNames(styles.navigation_link, styles.navigation_link_green)}
+                    href={`/`}>Home</Link>
             </li>
             <Image src={arrowRight} className={styles.arrow_right} alt={'Next Navigation Item'}/>
             <li className={styles.navigation_item}>
@@ -70,7 +75,8 @@ export default async function Product({searchParams, params: slug}) {
         </nav>
         <div className={styles.product}>
           <ProductSlider sliders={sliders}/>
-          <ProductInfo allParams={searchParams} merchant={merchant} preview={preview} type={productData[0].attributes.type}
+          <ProductInfo productId={productId} allParams={searchParams} merchant={merchant} preview={preview}
+                       type={productData[0].attributes.type}
                        slug={slug}
                        types={productData[0].attributes.types} color={productData[0].attributes.color}
                        colors={productData[0].attributes.colors}
@@ -87,7 +93,7 @@ export default async function Product({searchParams, params: slug}) {
           <ProductRatingStats coments={allProductComments}/>
           <ProductsComments productId={productId} allSearchParams={searchParams} comments={comments}/>
           <ProductLine/>
-          <RelatedProducts />
+          <RelatedProducts/>
         </div>
       </div>
     </main>

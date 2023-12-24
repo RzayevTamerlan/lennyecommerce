@@ -9,9 +9,12 @@ import closeIcon from "../../public/icons/close/close.svg";
 import hidePass from "../../public/icons/auth/pass-hide.svg";
 import showPass from "../../public/icons/auth/pass-show.svg";
 import {getCookie, loginUser, registerUser} from "../../actions/auth";
-import { setToken} from "../../api/createAxios";
-import { toast} from 'react-toastify';
+import {setToken} from "../../api/createAxios";
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import addToBasket from "../../api/addToBasket";
+import getAllBasketProducts from "../../api/getAllBasketProducts";
+import setBasketItemQuantity from "../../api/setBasketItemQuantity";
 
 export const cache = 'no-cache';
 const AutoModal = () => {
@@ -113,26 +116,72 @@ const AutoModal = () => {
     e.preventDefault();
     if (loginOrSignup === 'register') {
       const res = await registerUser(name, email, password);
-      console.log(res.user, 'res')
       if (res === 'Error') {
         setRegisterError('Something wrong with your email or password or name. Maybe you are already registered?');
+        toast('Something wrong with your email or password or name. Maybe you are already registered?')
+        setName('');
+        setNameError('Name cannot be empty');
+        setIsNameDirty(true);
+        setPassword("");
+        setPasswordError('Password cannot be empty');
+        setIsPasswordDirty(true);
+        setEmail("");
+        setEmailError('Email cannot be empty');
+        setIsEmailDirty(true);
       } else {
         const accessToken = await getCookie();
         logUser();
         setToken(accessToken.value);
         setAutoClose();
-        toast('You are successfully registered! 🎉🎉')
+        const allLocalBasket = localStorage.getItem('products');
+        if (allLocalBasket && allLocalBasket.length > 0) {
+          const localBasket = JSON.parse(allLocalBasket);
+          localBasket.forEach(async (item) => {
+            await addToBasket(item.title, item.slug, item.preview, item.color, item.type, item.price, item.merchant, res?.user?.username)
+          });
+          localStorage.removeItem('products');
+        }
+        toast('You are successfully registered! 🎉🎉', {
+          autoClose: 2000,
+        })
       }
     } else {
       const res = await loginUser(email, password);
       if (res === 'Error') {
         setLoginError('Something wrong with your email or password. Maybe you are not registered yet?');
+        toast('Something wrong with your email or password. Maybe you are not registered yet?')
+        setName('');
+        setNameError('Name cannot be empty');
+        setIsNameDirty(true);
+        setPassword("");
+        setPasswordError('Password cannot be empty');
+        setIsPasswordDirty(true);
+        setEmail("");
+        setEmailError('Email cannot be empty');
+        setIsEmailDirty(true);
       } else {
         const accessToken = await getCookie();
         setToken(accessToken.value);
         logUser();
         setAutoClose();
-        toast('You are successfully logged in! 🎉🎉');
+        const allLocalBasket = localStorage.getItem('products');
+        if (allLocalBasket && allLocalBasket.length > 0) {
+          const localBasket = JSON.parse(allLocalBasket);
+          const userBasket = await getAllBasketProducts(res?.user?.username);
+          localBasket.forEach(async (item) => {
+            const productIndex = userBasket.data.findIndex((product) => product.attributes.slug === item.slug && product.attributes.type === item.type && product.attributes.color === item.color);
+            if (productIndex === -1) {
+              await addToBasket(item.title, item.slug, item.preview, item.color, item.type, item.price, item.merchant, res?.user?.username, item?.quantity);
+            } else {
+              const product = userBasket.data[productIndex];
+              await setBasketItemQuantity(product.id, '_', product.attributes.quantity + item.quantity);
+            }
+          })
+          localStorage.removeItem('products');
+        }
+        toast('You are successfully logged in! 🎉🎉', {
+          autoClose: 2000,
+        });
       }
     }
   }

@@ -104,9 +104,13 @@ export async function getUser(token) {
   }
 }
 
-export async function getAllUserData() {
+export async function getAllUserData(token) {
   try {
-    const {data} = await api.get('/users/me?populate=*');
+    const {data} = await api.get('/users/me?populate=*', {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
     return data
   } catch (e) {
     return 'Error'

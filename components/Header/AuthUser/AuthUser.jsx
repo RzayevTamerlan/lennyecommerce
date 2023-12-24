@@ -38,8 +38,13 @@ const AuthUser = () => {
     if (res === 'Logged Out') {
       unregisterUser();
       closeModal();
-      toast('Logged Out')
+      toast('Logged Out', {
+        autoClose: 2000,
+      })
     }
+  }
+  const handleLinkClick = (e) => {
+    closeModal();
   }
   return (
     <>
@@ -62,16 +67,19 @@ const AuthUser = () => {
             </p>
             <ul className={styles.menu_list}>
               <li className={styles.menu_item}>
-                <Link href={'#'} className={styles.menu_link}><Image alt={'Purches'} src={purches}
-                                                                     className={styles.menu_img}/> Purchase</Link>
+                <Link onClick={(e) => handleLinkClick(e)} href={'#'} className={styles.menu_link}><Image alt={'Purches'}
+                                                                                                         src={purches}
+                                                                                                         className={styles.menu_img}/> Purchase</Link>
               </li>
               <li className={styles.menu_item}>
-                <Link href={'/wishlist'} className={styles.menu_link}><Image alt={'Wishlist'} src={wishlist}
-                                                                             className={styles.menu_img}/>Wishlist</Link>
+                <Link onClick={(e) => handleLinkClick(e)} href={'/wishlist'} className={styles.menu_link}><Image
+                  alt={'Wishlist'} src={wishlist}
+                  className={styles.menu_img}/>Wishlist</Link>
               </li>
               <li className={styles.menu_item}>
-                <Link href={'#'} className={styles.menu_link}><Image alt={'Settings'} src={settings}
-                                                                     className={styles.menu_img}/>Settings</Link>
+                <Link onClick={(e) => handleLinkClick(e)} href={'#'} className={styles.menu_link}><Image
+                  alt={'Settings'} src={settings}
+                  className={styles.menu_img}/>Settings</Link>
               </li>
             </ul>
           </div>

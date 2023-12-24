@@ -34,7 +34,7 @@ const ProductVariants = ({activeVariant, slug, variants, allParams, whichParam})
   if (variants) {
     renderVariants = variants.map((variant, index) => {
       return (
-        <Link className={styles.variants}
+        <Link scroll={false} className={styles.variants}
               href={`${slug.slug}?${new URLSearchParams({...allParams, [whichParam]: variant})}`}
               key={index}>{`${variant[0].toUpperCase()}${variant.slice(1)}`}</Link>
       )

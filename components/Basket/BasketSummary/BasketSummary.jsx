@@ -10,6 +10,8 @@ import arrowRightIcon from "../../../public/icons/basket/green-arrow-right.svg"
 import {toast, ToastContainer} from "react-toastify";
 import {getCookie, getUser} from "../../../actions/auth";
 import getAllBasketProducts from "../../../api/getAllBasketProducts";
+import {loadStripe} from "@stripe/stripe-js";
+import checkout from "../../../api/checkout";
 
 const BasketSummary = () => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -48,13 +50,40 @@ const BasketSummary = () => {
       }
     }
   }
+  const handlePayment = async (e) => {
+    try {
+      if (isUserLoggedIn) {
+        const stripePromise = await loadStripe('pk_test_51O8hu5KpBEhiyT2byI2Gu8iUpvAYGnDke992dKhpCntfGzLu03dNcvVW7lDN6499NCmdvaNwYWYgZOD828gfvzlF00nQVR9OvW');
+        const token = await getCookie();
+        const userData = await getUser(token?.value);
+        const basketData = await getAllBasketProducts(userData?.username);
+        console.log(basketData.data)
+        const stripe = await stripePromise;
+        const res = await checkout(basketData.data);
+        console.log(res.stripeSession.id, 'RES')
+        await stripe.redirectToCheckout({
+          sessionId: res.stripeSession.id
+        })
+      } else {
+        toast('You need to be logged in to make your purchase!');
+      }
+    } catch (e) {
+      console.log('ERROR', e);
+    }
+  }
   useEffect(() => {
     (async () => {
       if (!isUserLoggedIn) {
         const allProductsFromLocalStorage = JSON.parse(localStorage.getItem('products'));
         if (allProductsFromLocalStorage) {
           setProductsNames(() => allProductsFromLocalStorage?.map((product) => {
-            return {title: product.title, price: product.price, quantity: product.quantity}
+            return {
+              title: product.title,
+              price: product.price,
+              quantity: product.quantity,
+              type: product.type,
+              color: product.color
+            }
           }));
           const discount = JSON.parse(localStorage.getItem('discount'));
           const totalPrice = allProductsFromLocalStorage?.reduce((acc, product) => {
@@ -82,7 +111,9 @@ const BasketSummary = () => {
             return {
               title: product.attributes.title,
               price: product.attributes.price,
-              quantity: product.attributes.quantity
+              quantity: product.attributes.quantity,
+              type: product.attributes.type,
+              color: product.attributes.color
             }
           }))
           const totalPrice = allUserBasket?.data.reduce((acc, product) => {
@@ -110,7 +141,7 @@ const BasketSummary = () => {
         <TitleText size={'xs'} isCenter={false} text={'Product Summary'}/>
         <ul className={styles.products_list}>
           {!isUserLoggedIn ? productsNames.map((name) => (
-            <li key={name.title} className={styles.products_item}>
+            <li key={`${name.title}${name.color}${name.type}`} className={styles.products_item}>
               <p className={styles.product_name}>
                 {name.title}
                 {name.quantity > 1 ? ` x ${name.quantity}` : null}
@@ -121,7 +152,7 @@ const BasketSummary = () => {
             </li>
           )) : <h3 className={styles.add_product}>No products</h3>}
           {isUserLoggedIn ? productsNamesApi.map((name) => (
-            <li key={name.title} className={styles.products_item}>
+            <li key={`${name.title}${name.type}${name.color}`} className={styles.products_item}>
               <p className={styles.product_name}>
                 {name.title}
                 {name.quantity > 1 ? ` x ${name.quantity}` : null}
@@ -165,7 +196,7 @@ const BasketSummary = () => {
         <form className={styles.form} onSubmit={(e) => handleFormSubmit(e)}>
           <input ref={inputRef} placeholder={'Enter promo...'} className={styles.voucher} type="text"/>
         </form>
-        <button className={styles.checkout}>
+        <button onClick={handlePayment} className={styles.checkout}>
           Checkout
         </button>
       </div>

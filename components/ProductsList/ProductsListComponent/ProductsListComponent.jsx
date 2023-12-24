@@ -9,6 +9,9 @@ import arrowRightGreen from "../../../public/icons/green-arrow-right/green-arrow
 
 const ProductsListComponent = ({products, view, pagination, allParams}) => {
   const pages = Array.from({length: pagination.pageCount}, (_, index) => index + 1);
+  if(products.length < 1) {
+    return <h1 className={styles.title}>No products was found!</h1>
+  }
   return (
     <div className={styles.wrapper}>
       <ul className={classNames(styles.list, {

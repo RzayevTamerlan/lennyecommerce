@@ -5,7 +5,7 @@ import BasketItem from "../BasketItem/BasketItem";
 import {useBasket, useUser} from "../../../store/store";
 import {getCookie, getUser} from "../../../actions/auth";
 import getAllBasketProducts from "../../../api/getAllBasketProducts";
-
+import {useId} from "react";
 
 const BasketItems = () => {
   const [localProducts, setLocalProducts] = useState([]);
@@ -33,21 +33,25 @@ const BasketItems = () => {
   }, [isBasketChanged, isUserLoggedIn]);
   const renderBasketItems = (products) => (
     products.length > 0 ? (
-      products.map((product) => (
-        <li key={product.id || product.slug} className={styles.product_item}>
-          <BasketItem
-            preview={product.attributes?.preview || product.preview}
-            quantity={product.attributes?.quantity || product.quantity}
-            color={product.attributes?.color || product.color}
-            merchant={product.attributes?.merchant || product.merchant}
-            isUserLoggedIn={isUserLoggedIn}
-            title={product.attributes?.title || product.title}
-            slug={product.attributes?.slug || product.slug}
-            price={product.attributes?.price || product.price}
-            type={product.attributes?.type || product.type}
-          />
-        </li>
-      ))
+      products.map((product) => {
+        return (
+          <li key={isUserLoggedIn ? product.id : `${product?.preview}${product?.color}${product.type}`}
+              className={styles.product_item}>
+            <BasketItem
+              preview={product.attributes?.preview || product.preview}
+              quantity={product.attributes?.quantity || product.quantity}
+              color={product.attributes?.color || product.color}
+              merchant={product.attributes?.merchant || product.merchant}
+              isUserLoggedIn={isUserLoggedIn}
+              title={product.attributes?.title || product.title}
+              slug={product.attributes?.slug || product.slug}
+              price={product.attributes?.price || product.price}
+              type={product.attributes?.type || product.type}
+              id={product.id}
+            />
+          </li>
+        )
+      })
     ) : (
       <h4 className={styles.add}>Add some products to see them here!</h4>
     )

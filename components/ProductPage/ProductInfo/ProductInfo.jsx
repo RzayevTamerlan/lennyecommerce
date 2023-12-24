@@ -20,7 +20,8 @@ const ProductInfo = async ({
                              types,
                              color,
                              colors,
-                             merchant
+                             merchant,
+                             productId
                            }) => {
   const activeType = allParams.Type ? allParams.Type : type;
   const activeColor = allParams.Color ? allParams.Color : color;
@@ -48,6 +49,7 @@ const ProductInfo = async ({
       </div>
       <AddToBasket preview={preview} activeType={activeType} activeColor={activeColor} price={price} title={title}
                    slug={slug}
+                   productId={productId}
                    merchant={merchant}
                    rating={rating} description={description} isUserLoggedIn={isUserLoggedIn}/>
     </div>

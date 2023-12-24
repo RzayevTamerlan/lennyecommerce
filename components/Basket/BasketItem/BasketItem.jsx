@@ -10,59 +10,67 @@ import minusIcon from "../../../public/icons/basket/minus-square.svg";
 import plusIcon from "../../../public/icons/basket/add-square.svg";
 import {useState} from "react";
 import trashIcon from "../../../public/icons/basket/trash.svg";
+import {getCookie, getUser} from "../../../actions/auth";
+import setBasketItemQuantity from "../../../api/setBasketItemQuantity";
+import deleteProductFromBasket from "../../../api/deleteProductFromBasket";
 
-const BasketItem = ({title, slug, preview, merchant, price, quantity, type, color}) => {
+const BasketItem = ({title, slug, preview, merchant, price, quantity, type, color, id}) => {
   const [inputValue, setInputValue] = useState(quantity);
   const basketChanged = useBasket((state) => state.basketChanged);
   const isUserLoggedIn = useUser((state) => state.isUserRegistered);
   const myLoader = ({src}) => {
     return `${process.env.NEXT_PUBLIC_API}${src}`
   }
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     if (+e.target.value < 1) {
       e.target.value = 1;
     }
+    if (+e.target.value > 99) {
+      e.target.value = 99;
+    }
+    setInputValue(() => +e.target.value);
     if (!isUserLoggedIn) {
       const allProducts = JSON.parse(localStorage.getItem('products'));
       const productIndex = allProducts.findIndex((product) => product.slug === slug);
       allProducts[productIndex].quantity = +e.target.value;
       localStorage.setItem('products', JSON.stringify(allProducts));
-      setInputValue(() => e.target.value);
       basketChanged(['random'])
     } else {
-
+      const setQuantity = await setBasketItemQuantity(id, '_', +e.target.value);
+      basketChanged(['random']);
     }
   }
-  const handleIncrementClick = (e) => {
+  const handleIncrementClick = async (e) => {
     e.preventDefault();
+    if (+inputValue === 99) return;
+    setInputValue(() => +inputValue + 1);
     if (!isUserLoggedIn) {
-      if (+inputValue === 99) return;
       const allProducts = JSON.parse(localStorage.getItem('products'));
       const productIndex = allProducts.findIndex((product) => product.slug === slug);
       allProducts[productIndex].quantity = +inputValue + 1;
       localStorage.setItem('products', JSON.stringify(allProducts));
-      setInputValue(() => +inputValue + 1);
       basketChanged(['random'])
     } else {
-
+      const setQuantity = await setBasketItemQuantity(id, '+', +inputValue + 1);
+      basketChanged(['random'])
     }
   }
   const handleDecrementClick = (e) => {
     e.preventDefault();
+    if (+inputValue === 1) return;
+    setInputValue(() => +inputValue - 1);
     if (!isUserLoggedIn) {
       const allProducts = JSON.parse(localStorage.getItem('products'));
       const productIndex = allProducts.findIndex((product) => product.slug === slug);
-      if (+inputValue > 1) {
-        allProducts[productIndex].quantity = +inputValue - 1;
-        localStorage.setItem('products', JSON.stringify(allProducts));
-        setInputValue(() => +inputValue - 1);
-        basketChanged(['random'])
-      }
+      allProducts[productIndex].quantity = +inputValue - 1;
+      localStorage.setItem('products', JSON.stringify(allProducts));
+      basketChanged(['random'])
     } else {
-
+      const setQuantity = setBasketItemQuantity(id, '-', +inputValue - 1);
+      basketChanged(['random'])
     }
   }
-  const handleDeleteClick = (e) => {
+  const handleDeleteClick =async (e) => {
     e.preventDefault();
     if (!isUserLoggedIn) {
       const allProducts = JSON.parse(localStorage.getItem('products'));
@@ -71,7 +79,8 @@ const BasketItem = ({title, slug, preview, merchant, price, quantity, type, colo
       localStorage.setItem('products', JSON.stringify(allProducts));
       basketChanged(['random'])
     } else {
-
+      const removeFromBasket = await deleteProductFromBasket(id);
+      basketChanged(['random'])
     }
   }
   return (

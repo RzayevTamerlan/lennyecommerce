@@ -1,10 +1,9 @@
 import api from "./createAxios";
 
-const setBasketItemQuantity = async (slug, username, quantity) => {
-  const {data} = await api.get(`/baskets?filters[$and][0][slug][$eq]=${slug}&filters[$and][1][username][$eq]=${username}&populate=*`);
-  const {data: updatedData} = await api.put(`/baskets/${data.data[0].id}`, {
+const setBasketItemQuantity = async (id, username, quantity) => {
+  const {data: updatedData} = await api.put(`/baskets/${id}`, {
     "data": {
-      quantity
+      quantity: +quantity
     }
   });
   return updatedData;

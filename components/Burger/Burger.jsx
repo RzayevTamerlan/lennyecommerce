@@ -9,11 +9,13 @@ import userIcon from "../../public/icons/user/user.svg"
 import closeIcon from "../../public/icons/close/close.svg"
 import userPic from "../../public/icons/user/user-icon.jpg"
 import {useEffect, useState} from "react";
-import {getCookie, getUser} from "../../actions/auth";
+import {getCookie, getUser, logoutUser} from "../../actions/auth";
 import {setToken} from "../../api/createAxios";
 import purches from "../../public/icons/user/purches.svg";
 import wishlist from "../../public/icons/user/wishlist.svg";
 import settings from "../../public/icons/user/settings.svg";
+import logout from "../../public/icons/user/logout.svg";
+import {toast} from "react-toastify";
 
 const Burger = ({isActive}) => {
   const isUserLoggedIn = useUser((state) => state.isUserRegistered);
@@ -30,6 +32,18 @@ const Burger = ({isActive}) => {
   }, [isUserLoggedIn]);
   const closeModal = useToggle((state) => state.toggleBurger);
   const openAuth = useAuto((state) => state.openAuto);
+  const unregisterUser = useUser(state => state.unregisterUser);
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    const res = await logoutUser();
+    if (res === 'Logged Out') {
+      unregisterUser();
+      closeModal();
+      toast('Logged Out', {
+        autoClose: 2000,
+      })
+    }
+  }
   return (
     <div className={classNames(styles.burger, {
       [styles.burger_active]: isActive
@@ -63,6 +77,12 @@ const Burger = ({isActive}) => {
                     <Image className={styles.user_item_img} alt={'Settings'} src={settings}/>
                     Settings
                   </Link>
+                </li>
+                <li>
+                  <button onClick={(e) => handleLogout(e)} className={styles.user_logout}>
+                    <Image className={styles.user_item_img} alt={'Settings'} src={logout}/>
+                    Logout
+                  </button>
                 </li>
               </ul>
             </>)

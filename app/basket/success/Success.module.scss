@@ -1,0 +1,54 @@
+@import "../../../app/vars";
+@import "../../../app/mixins";
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.img_box {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+.img_circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  height: 85%;
+  border-radius: 50%;
+  border: 2px solid $price;
+  background-color: $price;
+  opacity: 0.2;
+  animation: scaleCircle 3s infinite ease-in-out;
+}
+
+.btn {
+  margin-top: 32px;
+  @include filled-button;
+  width: 20%;
+  text-align: center;
+}
+
+@keyframes scaleCircle {
+  0% {
+    width: 85%;
+    height: 85%;
+  }
+  50% {
+    width: 120%;
+    height: 120%;
+  }
+  100% {
+    width: 85%;
+    height: 85%;
+  }
+}

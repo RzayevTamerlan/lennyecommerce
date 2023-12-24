@@ -21,9 +21,9 @@ export default async function Wishlist() {
       </main>
     )
   } else {
-    await setToken(token.value)
-    const user = await getAllUserData();
-    const wishlist = await getWishlist(user.wishlist.id);
+    await setToken(token.value);
+    const user = await getAllUserData(token?.value);
+    const wishlist = await getWishlist(user?.wishlist?.id);
     const wishlistProducts = wishlist.data.attributes.products.data;
     const productsList = await getAllProductsWithPrev(wishlistProducts);
     return (

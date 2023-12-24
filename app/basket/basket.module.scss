@@ -3,6 +3,15 @@
   gap: 32px;
   margin-top: -50px;
 }
-.releted_products{
+
+.releted_products {
   margin-top: 50px;
+}
+
+@media(max-width: 760px) {
+  .inner {
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+  }
 }

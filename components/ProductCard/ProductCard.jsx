@@ -13,7 +13,7 @@ import {useUser} from "../../store/store";
 import {setToken} from "../../api/createAxios";
 import {toast, ToastContainer} from "react-toastify";
 
-const ProductCard = ({isSlide, image, name, slug, producer, rating, price, uniId,wish}) => {
+const ProductCard = ({isSlide, image, name, slug, producer, rating, price, uniId, wish}) => {
   const myLoader = ({src}) => {
     return `${process.env.NEXT_PUBLIC_API}${image}`;
   }
@@ -21,12 +21,12 @@ const ProductCard = ({isSlide, image, name, slug, producer, rating, price, uniId
   const [isWished, setIsWished] = useState(wish);
   useEffect(() => {
     const isInWishlist = async () => {
-      if(isUserLogged === false) return;
+      if (isUserLogged === false) return;
       const token = await getCookie();
       if (token !== 'No Cookie Found') {
         await setToken(token.value);
       }
-      const user = await getAllUserData();
+      const user = await getAllUserData(token.value);
       const WishlistId = await user?.wishlist?.id;
       const isInWishlist = await findInWishlist(uniId, WishlistId);
       if (isInWishlist !== 'Error' && isInWishlist) {
@@ -45,21 +45,23 @@ const ProductCard = ({isSlide, image, name, slug, producer, rating, price, uniId
         return;
       }
       if (isWished) {
-        const user = await getAllUserData();
+        const token = await getCookie();
+        const user = await getAllUserData(token?.value);
         const WishlistId = await user?.wishlist?.id;
         const remove = await removeFromWishlist(uniId, WishlistId);
         await setIsWished(false)
       } else {
-          const user = await getAllUserData();
-          const WishlistId = await user?.wishlist?.id;
-          const add = await addToWishlist(uniId, WishlistId);
-          setIsWished(true)
-        }
+        const token = await getCookie();
+        const user = await getAllUserData(token?.value);
+        const WishlistId = await user?.wishlist?.id;
+        const add = await addToWishlist(uniId, WishlistId);
+        setIsWished(true)
+      }
     }
   }
   return (
     <>
-      <ToastContainer/>
+      {isSlide ? null : <ToastContainer/>}
       <Link onClick={(e) => handleLinkClick(e)} href={`/products/${slug}`} className={classNames({
           [styles.product_card]: !isSlide,
           [styles.product_card_slide]: isSlide
@@ -73,12 +75,12 @@ const ProductCard = ({isSlide, image, name, slug, producer, rating, price, uniId
             [styles.product_image_slide]: isSlide,
             [styles.product_image]: !isSlide
           })} loader={myLoader} src={`${process.env.NEXT_PUBLIC_API}${image}`} width={120} height={120} alt={name}/>
-          <button className={classNames('favorit_btn', {
+          {isSlide ? null : <button className={classNames('favorit_btn', {
             [styles.product_favorite_slide]: isSlide,
             [styles.product_favorite]: !isSlide
           })}>
             <Image className={'favorit'} src={isWished ? heartRed : heart} alt={'Favorite'}/>
-          </button>
+          </button>}
         </div>
 
         <div className={classNames({
